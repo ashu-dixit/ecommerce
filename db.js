@@ -1,11 +1,11 @@
-const Sequelize = require("sequelize")
+const Sequelize = require('sequelize')
 const db = new Sequelize('shopdb', 'shopper', 'shoppass', {
 
     host: 'localhost',
     dialect: 'mysql',
 
     pool: {
-        max: 5,
+        max: 6,
         min: 0,
         acquire: 30000,
         idle: 10000
@@ -106,11 +106,17 @@ const orders = db.define('Orders', {
         type: Sequelize.DATE
     },
     shipperID: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
     },
-    salesTax: Sequelize.FLOAT,
-    paid: Sequelize.BOOLEAN,
-    paymentDate: Sequelize.DATEONLY
+    salesTax: {
+        type: Sequelize.FLOAT
+    },
+    paid: {
+        type: Sequelize.BOOLEAN
+    },
+    paymentDate: {
+        type: Sequelize.DATEONLY
+    }
 })
 const product = db.define('Product', {
     productID: {
@@ -130,10 +136,10 @@ const product = db.define('Product', {
         type: Sequelize.INTEGER,
     },
     categoryID: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
     },
     stock: {
-        type: Sequelize.NUMBER,
+        type: Sequelize.INTEGER,
         allowNull: false
     },
     size: {
@@ -154,7 +160,7 @@ const product = db.define('Product', {
 })
 const categories = db.define('Categories', {
     categoryID: {
-        type: Sequelize.NUMBER,
+        type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false
     },
@@ -181,7 +187,7 @@ const orderDetail = db.define('OrderDetail', {
         allowNull: false
     },
     quantity: {
-        type: Sequelize.NUMBER,
+        type: Sequelize.INTEGER,
         allowNull: false
     },
     price: {
@@ -253,7 +259,7 @@ const supplier = db.define('Supplier', {
 })
 db.sync()
     .then(() => console.log("Database has been created"))
-    .catch((err) => console.error("error creting database"))
+    .catch((err) => console.error("error creating database"))
 
 exports = module.exports = {
     db,

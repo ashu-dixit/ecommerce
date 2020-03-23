@@ -2,14 +2,16 @@ const route = require('express').Router()
 const product = require('../db').product
 
 // this request will extract 10 product from database store it in products
-route.get('/', (res, req) => {
+route.get('/', (req, res) => {
 
-    product.findAll()
+    product.findAll({
+            limit: 10
+        })
         .then((products) => {
-            res.send(products)
+            res.status(200).send(products)
         })
         .catch((err) => {
-            res.send({
+            res.status(500).send({
                 error: "Could not retreive products"
             })
         })
@@ -20,12 +22,12 @@ route.get('/', (res, req) => {
 route.post('/', (req, res) => {
 
     if (isNaN(req.body.price)) {
-        return res.send({
+        return res.status(403).send({
             error: "Price is not valid number"
         })
     }
     if (req.body.productID == null) {
-        return res.send({
+        return res.status(403).send({
             error: "ProductID cannnot be NULL"
         })
     }
@@ -40,27 +42,28 @@ route.post('/', (req, res) => {
         })
     }
     product.create({
-            productID: pasrseInt(req.body.ID),
-            productName: req.body.name,
+            productID: parseInt(req.body.productID),
+            productName: req.body.productName,
             supplier: req.body.supplier,
             price: parseFloat(req.body.price),
             categoryID: parseInt(req.body.categoryID),
-            productDiscription: req.body.discription,
+            productDiscription: req.body.productDiscription,
             supplierID: parseInt(req.body.supplierID),
             stock: parseInt(req.body.stock),
             size: req.body.size,
             colour: req.body.colour,
-            discount: parseFloat(req.body.discount)
+            Discount: parseFloat(req.body.discount)
+
         })
         .then((product) => {
             res.status(201).send(product)
             console.log("This product has been added")
         })
-        .catch((error) => {
-            res.status(501).send({
-                error: "Error adding product"
-            })
-        })
+        // .catch((error) => {
+        //     res.status(501).send({
+        //         error: "Error adding product"
+        //     })
+        // })
 })
 
 exports = module.exports = { route }
