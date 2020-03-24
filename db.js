@@ -16,6 +16,7 @@ const customer = db.define('Customer', {
     customerID: {
         type: Sequelize.INTEGER,
         primaryKey: true,
+
         allowNull: false
     },
     firstName: {
@@ -119,23 +120,24 @@ const orders = db.define('Orders', {
     }
 })
 const product = db.define('Product', {
-    productID: {
+    id: {
         type: Sequelize.INTEGER,
+        autoIncrement: true,
         primaryKey: true,
         allowNull: false
     },
-    productName: {
+    name: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    productDiscription: {
-        type: Sequelize.INTEGER,
+    discription: {
+        type: Sequelize.STRING,
         allowNull: false
     },
-    SupplierID: {
+    supplierid: {
         type: Sequelize.INTEGER,
     },
-    categoryID: {
+    categoryid: {
         type: Sequelize.INTEGER
     },
     stock: {
@@ -151,7 +153,7 @@ const product = db.define('Product', {
     price: {
         type: Sequelize.FLOAT
     },
-    Discount: {
+    discount: {
         type: Sequelize.FLOAT
     },
     picture: {

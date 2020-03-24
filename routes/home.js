@@ -11,6 +11,7 @@ route.get('/', (req, res) => {
             res.status(200).send(products)
         })
         .catch((err) => {
+            console.log(err)
             res.status(500).send({
                 error: "Could not retreive products"
             })
@@ -42,28 +43,28 @@ route.post('/', (req, res) => {
         })
     }
     product.create({
-            productID: parseInt(req.body.productID),
-            productName: req.body.productName,
-            supplier: req.body.supplier,
+            id: parseInt(req.body.id),
+            name: req.body.name,
             price: parseFloat(req.body.price),
-            categoryID: parseInt(req.body.categoryID),
-            productDiscription: req.body.productDiscription,
-            supplierID: parseInt(req.body.supplierID),
+            categoryid: parseInt(req.body.categoryID),
+            discription: req.body.discription,
+            supplierid: parseInt(req.body.supplierID),
             stock: parseInt(req.body.stock),
             size: req.body.size,
             colour: req.body.colour,
-            Discount: parseFloat(req.body.discount)
+            discount: parseFloat(req.body.discount)
 
         })
         .then((product) => {
             res.status(201).send(product)
             console.log("This product has been added")
         })
-        // .catch((error) => {
-        //     res.status(501).send({
-        //         error: "Error adding product"
-        //     })
-        // })
+        .catch((error) => {
+            console.log(err)
+            res.status(501).send({
+                error: "Error adding product"
+            })
+        })
 })
 
 exports = module.exports = { route }
