@@ -11,7 +11,7 @@ function createproductCard(product) {
         <div class="mt-3  card">
             <div class="p-1  row">
                 <div class="col-4">${product.name}</div>
-                <div class="col-6">${product.manufacturer}</div>
+                <div class="col-6">${product.discription}</div>
                 <button type="button" class="col-1 close" aria-label="Close" id = "ad">
                     <span aria-hidden="true">&times;</span>
                 </button>

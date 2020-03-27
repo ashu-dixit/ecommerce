@@ -1,8 +1,15 @@
 const route = require('express').Router()
 const product = require('../db').product
 
+const authCheck = (req,res,next) => {
+    if(req.user){
+        next()
+    }else{
+        res.redirect('/login.html')
+    }
+}
 // this request will extract 10 product from database store it in products
-route.get('/', (req, res) => {
+route.get('/',authCheck, (req, res) => {
 
     product.findAll({
             limit: 10

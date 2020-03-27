@@ -13,10 +13,8 @@ const db = new Sequelize('shopdb', 'shopper', 'shoppass', {
 })
 
 const customer = db.define('Customer', {
-    customerID: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
-
+    socialID: {
+        type: Sequelize.STRING,
         allowNull: false
     },
     firstName: {
@@ -25,10 +23,14 @@ const customer = db.define('Customer', {
     },
     lastName: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
+    },
+    gender:{
+      type:Sequelize.STRING,
+    //   allowNull:false  
     },
     Email: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false
     },
     mobileNumber: {
@@ -81,6 +83,10 @@ const customer = db.define('Customer', {
     },
     shipPinCode: {
         type: Sequelize.INTEGER,
+        allowNull: true
+    },
+    password:{
+        type: Sequelize.STRING, 
         allowNull: true
     }
 })
